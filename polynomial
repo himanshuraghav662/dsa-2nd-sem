@@ -1,0 +1,122 @@
+#include<stdio.h>
+
+#include <stdlib.h>
+typedef struct nodetype{
+    int power;
+    int coofficient;
+    struct nodetype *next;
+}node;
+void create_empty_list(node **head )
+  {
+        *head=NULL;
+     }
+    
+void addnode(node **head , int item , int item1)
+{
+    node *ptr;
+    ptr=(node *)malloc(sizeof (node));
+    ptr->coofficient=item;
+    ptr->power=item1;
+    if(*head==NULL)
+    {
+     ptr->next=NULL;
+    }
+    else{
+     ptr->next=*head;
+     *head=ptr;
+    }
+}
+
+
+  void traverseInOrder1(node *ptr3)
+     {
+         while(ptr3 !=NULL){
+            printf("%d\n",ptr3->coofficient);
+            ptr3=ptr3->next;
+        }
+     }
+void add_polynomial(node *ptr1 , node *ptr2 , node **ptr3)
+{
+int powe;
+float coef;
+while((ptr1!=NULL)&&(ptr2!=NULL))
+{
+    if(ptr1->power > ptr2->power)
+    {
+        coef=ptr1->coofficient;
+        ptr1=ptr1->next;
+    }
+    else if(ptr1->power < ptr2->power)
+    {
+        coef=ptr2->coofficient;
+        powe=ptr2->power;
+        ptr2=ptr2->next;
+    }
+    else
+    {
+     coef=(ptr1->coofficient)+(ptr2->coofficient);
+     powe=ptr1->power;
+     ptr1=ptr1->next;
+     ptr2=ptr2->next;
+    }
+
+
+    if(coef!=0)
+    {
+        addnode(ptr3,coef,powe);
+    }
+    if(ptr1==NULL)
+    {
+     for(;ptr2!=NULL;ptr2=ptr2->next)
+     {
+        addnode(ptr3,ptr2->coofficient,ptr2->power);
+     }
+    }
+    else if(ptr2==NULL)
+    {
+           for(;ptr1!=NULL;ptr1=ptr1->next)
+           {
+              addnode(ptr3,ptr1->coofficient,ptr1->power);
+           }
+    }
+}
+}
+void main()
+{
+    node *head,*ptr1,*ptr2,*ptr3;
+    int choice,co,po;
+    create_empty_list(&head);
+    while(1)
+    {
+        printf("        Options available\n        ");
+        printf("++++++++++++++++++++++++++++++++++++\n\n");
+        printf("1. add node\n");
+        printf("2.add polynomials\n");
+        printf("3.travers in order\n");
+        printf("10.Exit\n\n");
+
+        printf("Enter your choice(1-10):");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("\nEnter coooficient: ");
+            scanf("%d%d",&co,&po);
+            addnode(&head,co,po);
+            break;
+
+            case 2:
+            printf("\nadd polynomial:");
+            add_polynomial(ptr1,ptr2,&ptr3);
+            break;
+
+            case 3:
+            printf("\ntraverse in order:");
+             void traverseInOrder1(ptr3);
+            break;
+            case 10:
+           // deleteList(&head);
+            exit(1);
+        }
+    }
+}  // End of main function
